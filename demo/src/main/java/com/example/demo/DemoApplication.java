@@ -2,28 +2,19 @@ package com.example.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.context.ConfigurableApplicationContext;
 
-import java.io.File;
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, RedisAutoConfiguration.class},
+        scanBasePackages = "com.example.demo.test")
 
-@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class }/* , scanBasePackages="com.example.entity" */)
-//@EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class })
 public class DemoApplication {
-	{
-		String curr = System.getProperty("user.dir");
-		File file = new File(curr);
-		System.out.println(file.getParent());
-	}
 
-	public static void main(String[] args) {
 
-		 SpringApplication.run(DemoApplication.class, args);
-		/*
-		 * SpringApplication application = new SpringApplication(DemoApplication.class);
-		 * application.setBannerMode(Banner.Mode.OFF); application.run(args);
-		 */
-
-	}
+    public static void main(String[] args) throws Exception {
+        ConfigurableApplicationContext context = SpringApplication.run(DemoApplication.class, args);
+    }
 
 
 }
